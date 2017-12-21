@@ -15,7 +15,29 @@ public class MyAccount {
 
 	@FindBy(xpath = Elements.myAccHeaderlabel)
 	private WebElement myAccHeaderlabel;
-
+	@FindBy(xpath = Elements.myAddresslink)
+	private WebElement myAddresslink;
+	@FindBy(xpath = Elements.addMyAddresslink)
+	private WebElement addMyAddresslink;
+	@FindBy(xpath = Elements.addNewAddressButton)
+	private WebElement addNewAddressButton;
+	
+	public WebElement getAddNewAddressButton(){
+		return addNewAddressButton;
+	}
+	public void  addNewAddressButtonClick(){
+		 addNewAddressButton.click();
+	}
+	public WebElement getMyAddresslink(){
+		return myAddresslink;
+	}
+	public void myAddresslinkClick(){
+		 myAddresslink.click();;
+	}
+	public WebElement getAddMyAddresslink(){
+		return addMyAddresslink;
+	}
+	
 	public boolean checkMyAccSubHeaderLabel() {
 		logger.info(myAccSubHeaderlabel.getText().toString());
 		if (myAccSubHeaderlabel.getText().trim().toLowerCase().contains(

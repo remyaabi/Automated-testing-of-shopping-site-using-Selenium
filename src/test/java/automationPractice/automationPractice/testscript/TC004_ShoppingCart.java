@@ -23,6 +23,7 @@ import automationPractice.automationPractice.pageobjects.BuyProduct;
 import automationPractice.automationPractice.pageobjects.CartObj;
 import automationPractice.automationPractice.pageobjects.CreateAccount;
 import automationPractice.automationPractice.pageobjects.MainHomePageobject;
+import automationPractice.automationPractice.pageobjects.MyAccount;
 import automationPractice.automationPractice.pageobjects.Payment;
 import automationPractice.automationPractice.pageobjects.Shipping;
 import automationPractice.automationPractice.pageobjects.ShoppingCartSummary;
@@ -40,15 +41,18 @@ public class TC004_ShoppingCart extends TestBase {
 	Shipping shippingObj;
 	Payment paymentObj;
 	CreateAccount createAccount;
+	MyAccount myAccount;
 
 	static Logger logger = Logger.getLogger(TC001_Navigationlink.class.getName());
-
+    /***
+     * To setup the driver and invoke the url
+     * @throws IOException
+     */
 	@BeforeClass(alwaysRun = true)
 	public void setUp() throws IOException {
 		super.init();
 		womenObj = PageFactory.initElements(driver, Women.class);
 		buyProduct = PageFactory.initElements(driver, BuyProduct.class);
-
 		mainHomePageobject = PageFactory.initElements(driver, MainHomePageobject.class);
 		cartObj = PageFactory.initElements(driver, CartObj.class);
 		signInObj = PageFactory.initElements(driver, SignInObj.class);
@@ -57,6 +61,7 @@ public class TC004_ShoppingCart extends TestBase {
 		paymentObj = PageFactory.initElements(driver, Payment.class);
 		shoppingCartSummary = PageFactory.initElements(driver, ShoppingCartSummary.class);
 		createAccount = PageFactory.initElements(driver, CreateAccount.class);
+		myAccount = PageFactory.initElements(driver, MyAccount.class);
 
 	}
 
@@ -65,6 +70,7 @@ public class TC004_ShoppingCart extends TestBase {
 	@Parameters({ "categoryname", "subCatNameInWomen", "itemName", "quantity", "size" })
 	public void tc4sub1_shoppingCartOnWomenMouseOver(String categoryname, String subCatNameInWomen, String itemName,
 			int quantity, String size) throws InterruptedException {
+		dataSetUp();
 		commonMethodMouseOver(categoryname, subCatNameInWomen, itemName, quantity, size);
 		buyProduct.proceedCheckoutClick();
 		Thread.sleep(1000);
@@ -125,7 +131,7 @@ public class TC004_ShoppingCart extends TestBase {
 	}
 
 	@Test(testName = "tc4sub2_OnWomenMouseOverDeleteAll", description = "The test case to add item to the cart page", groups = {
-			" TC004_ShoppingCart", "1" })
+			" TC004_ShoppingCart", "2" })
 
 	@Parameters({"categoryname", "subCatNameInWomen", "itemName", "quantity", "size"})
 	public void tc4sub2_OnWomenMouseOverDeleteAll(String categoryname, String subCatNameInWomen, String itemName,
@@ -146,7 +152,7 @@ public class TC004_ShoppingCart extends TestBase {
 	
 	
 	@Test(testName = "tc4sub3_shoppingCartOnWomenMouseOverAndChooseBillingAdd", description = "The test case to add item to the cart page", groups = {
-			" TC004_ShoppingCart", "1" })
+			" TC004_ShoppingCart", "3" })
 	@Parameters({ "categoryname", "subCatNameInWomen", "itemName", "quantity", "size" })
 	public void tc4sub3_shoppingCartOnWomenMouseOverAndChooseBillingAdd(String categoryname, String subCatNameInWomen, String itemName,
 			int quantity, String size) throws InterruptedException {
@@ -229,7 +235,7 @@ public class TC004_ShoppingCart extends TestBase {
 
 
 	@Test(testName = "tc4sub4_shoppingCartOnWomenMouseOverAndAddDelAddress", description = "The test case to add item to the cart page", groups = {
-			" TC004_ShoppingCart", "1" })
+			" TC004_ShoppingCart", "4" })
 	@Parameters({ "categoryname", "subCatNameInWomen", "itemName", "quantity", "size" })
 	public void tc4sub4_shoppingCartOnWomenMouseOverAndAddDelAddress(String categoryname, String subCatNameInWomen, String itemName,
 			int quantity, String size) throws InterruptedException {
@@ -309,7 +315,7 @@ public class TC004_ShoppingCart extends TestBase {
 	}
 
 @Test(testName = "tc4sub5_shoppingCartOnWomenMouseOverAndAddDelAddress", description = "The test case to add item to the cart page", groups = {
-	" TC004_ShoppingCart", "1" })
+	" TC004_ShoppingCart", "5" })
 @Parameters({ "categoryname", "subCatNameInWomen", "itemName", "quantity", "size" })
 public void tc4sub5_shoppingCartOnWomenMouseOverAndAddBillAddress(String categoryname, String subCatNameInWomen, String itemName,
 	int quantity, String size) throws InterruptedException {
@@ -392,6 +398,7 @@ mainHomePageobject.returnHomeLink();
 	@Parameters({ "categoryname", "subCatNameInWomen", "itemName", "quantity", "size" })
 	public void tc4sub6_shoppingCartOnWomenMouseOverAndDeleteAllAddress(String categoryname, String subCatNameInWomen, String itemName,
 		int quantity, String size) throws InterruptedException {
+	
 	commonMethodMouseOver(categoryname, subCatNameInWomen,itemName,quantity, size);
 
 	buyProduct.proceedCheckoutClick();
@@ -595,7 +602,34 @@ mainHomePageobject.returnHomeLink();
 		// buyProduct.assertProductTitle(productTitle));
 	}
 
-	
+	public void dataSetUp(){
+		if  (mainHomePageobject.getSignInsignOutText("Sign in")) {
+			
+			Reporter.log("Eneted sign in condition");
+			String userName="remy@gmail.com";
+			String password="tttti";
+			CommonUtil.signinAlreadyRegUser(mainHomePageobject, signInObj,userName,password);
+		}
+		myAccount.myAddresslinkClick();
+		Assert.assertTrue(addressObj.textAssertCheck(addressObj.getAddressnotAvailableText(), "No addresses are available"));
+		myAccount.addNewAddressButtonClick();
+		Assert.assertTrue(addressObj.textAssertCheck(addressObj.getYourAddressText(), "YOUR ADDRESSES"));
+		String custName = "custName";
+		String custLastName = "custLastName";
+
+		String company = "companyName";
+		String address1 = "123 fjej kgokh kgofkbl djmkfbhkg";
+		String address2 = "";
+		String city = "santideago";
+		String state = "iowa";
+		String phNo = "62654375";
+		String moblieNo = "5735978607";
+		int zipCode = 98433;
+		String aliasVal = "gfhvghjjjhg";
+		createAccount.updateAddress(custName, custLastName, company, address1, address2, city, state, phNo,
+				moblieNo, zipCode, aliasVal);
+		
+	}
 
 	
 }

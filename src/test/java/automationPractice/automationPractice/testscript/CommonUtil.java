@@ -10,7 +10,7 @@ import automationPractice.automationPractice.pageobjects.SignInObj;
 
 public class CommonUtil {
 	public static void signinAlreadyRegUser(MainHomePageobject mainHomePageobject,SignInObj signInObj, String userName,String password){
-		//mainHomePageobject.signInLinkClick();
+		mainHomePageobject.signInLinkClick();
 		System.out.println("signinAlreadyRegUser()");
 		signInObj.entersignInEmailClick(userName);
 		signInObj.enterPasswdTextClick(password);
@@ -33,5 +33,5 @@ public class CommonUtil {
 			return flag;
 	    }
 	 
-
+       
 }

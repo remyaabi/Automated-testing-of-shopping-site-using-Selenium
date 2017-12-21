@@ -122,4 +122,8 @@ public class Elements {
     public static final String updateAddress= "//button[@id='submitAddress']";
     public static final String backAddress="//a[contains(@href,'http://automationpractice.com/index.php?controller=addresses')][1]";
     
+    //My Account
+    public static final String myAddresslink= "//a[@title='Addresses']";
+    public static final String addMyAddresslink="//a[@title='Add my first address']";
+    public static final String addNewAddressButton="//a[@title='Add an address']";
 }
