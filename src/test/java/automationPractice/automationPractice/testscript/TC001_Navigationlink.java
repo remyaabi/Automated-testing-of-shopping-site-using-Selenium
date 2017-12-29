@@ -8,9 +8,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import automationPractice.automationPractice.customlistener.Listener;
 import automationPractice.automationPractice.pageobjects.*;
 
-public class TC001_Navigationlink extends TestBase {
+public class TC001_Navigationlink extends Listener{
 	MainHomePageobject mainHomePageobject;
 	DepartmentsObj departmentsObj;
 	SignInObj signInObj;
@@ -32,14 +34,14 @@ public class TC001_Navigationlink extends TestBase {
 			"TC001_Navigationlink", "1" })
 	public void tc1Sub1_SearchValue() {
 		logger.debug("In Search Value");
-		mainHomePageobject.searchValue();
+		mainHomePageobject.searchValue();		
 	}
 
 	@Test(testName = "tcSub2_ContactLink", description = "The test case to check the contact link redirecting to the apporiate page", groups = {
 			"TC001_Navigationlink", "2" })
 	public void tc1Sub2_ContactLink() {
 		logger.debug("In Contact Link");
-		mainHomePageobject.contactLink();
+		mainHomePageobject.contactLink();		
 	}
 		
 
@@ -47,15 +49,15 @@ public class TC001_Navigationlink extends TestBase {
 			"TC001_Navigationlink", "3" })
 	public void tc1Sub3_SigninLink() {
 		logger.debug("In signIn Link");
-		mainHomePageobject.signinLink();
+		mainHomePageobject.signinLink();		
 	}
 
-	/*@Test(testName = "tcSub4_DealLink", description = "he test case to check the deal link redirecting to the deal page", groups = {
+	@Test(testName = "tcSub4_DealLink", description = "he test case to check the deal link redirecting to the deal page", groups = {
 			"TC001_Navigationlink", "4" })
 	public void tc1Sub4_DealLink() {
 		logger.debug("In Deal Link");
-		mainHomePageobject.dealLink();
-	}*/
+		mainHomePageobject.dealLink();		
+	}
 
 	@Test(testName = "tcSub5_CartLink", description = "he test case to check the cart link redirecting to the cart page", groups = {
 			"TC001_Navigationlink", "5" })
@@ -71,8 +73,7 @@ public class TC001_Navigationlink extends TestBase {
 	public void tc1Sub6_WomenLinkClickCheck() {
 		WebElement expectedLinkResult = departmentsObj.womenLinkClick();
 		String linkresult = "Women";
-		Assert.assertEquals(expectedLinkResult.getText().trim().toUpperCase(), linkresult.toUpperCase());
-		mainHomePageobject.returnHomeLink();
+		Assert.assertEquals(expectedLinkResult.getText().trim().toUpperCase(), linkresult.toUpperCase());		
 	}
 
 	@Test(testName = "tcSub7_DressLinkClickCheck", description = "The test case to check the dress  link redirecting to the dress page", groups = {
@@ -80,7 +81,7 @@ public class TC001_Navigationlink extends TestBase {
 	public void tc1Sub7_DressLinkClickCheck() {
 		WebElement expectedLinkResult = departmentsObj.dressLinkClick();
 		String linkresult = "Dresses";
-		Assert.assertEquals(expectedLinkResult.getText().trim().toUpperCase(), linkresult.toUpperCase());
+		Assert.assertEquals(expectedLinkResult.getText().trim().toUpperCase(), linkresult.toUpperCase());		
 	}
 
 	@Test(testName = "tcSub8_TshirtLinkClickCheck", description = "The test case to check the t-shirt  link redirecting to the t-shirt page", groups = {
@@ -89,7 +90,7 @@ public class TC001_Navigationlink extends TestBase {
 		logger.debug("not working");
 		WebElement expectedLinkResult = departmentsObj.tshirtLinkClick();
 		String linkresult = "T-shirts";
-		Assert.assertEquals(expectedLinkResult.getText().trim().toUpperCase(), linkresult.toUpperCase());
+		Assert.assertEquals(expectedLinkResult.getText().trim().toUpperCase(), linkresult.toUpperCase());		
 	}
 
 }

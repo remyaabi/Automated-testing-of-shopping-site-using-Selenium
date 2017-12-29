@@ -2,6 +2,8 @@ package automationPractice.automationPractice.customlistener;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -12,13 +14,14 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
+import org.testng.annotations.AfterMethod;
 
 import automationPractice.automationPractice.testscript.TestBase;
 
-public class Listener extends TestBase implements ITestListener{
-    Logger logger;
+public class Listener  extends TestBase implements ITestListener{
+    
 	public void onTestStart(ITestResult result) {
-	 logger =Logger.getLogger(result.getMethod().getMethodName());
+	
 		Reporter.log(result.getMethod().getMethodName());
 	}
 
@@ -26,31 +29,50 @@ public class Listener extends TestBase implements ITestListener{
 		// TODO Auto-generated method stub
 		
 	}
-
+	@AfterMethod
 	public void onTestFailure(ITestResult result) {
-		logger.info("entered screen shot func");
+		/*logger.info("entered screen shot func");
 		logger.info(result.getStatus());
+		
+		if (!result.isSuccess()){
+			Calendar calendar=Calendar.getInstance();
+			SimpleDateFormat formater=new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss");
+		}*/
+		
+		
+	
 		File screenShotName;
-		if (result.getStatus() == ITestResult.FAILURE) {
-			logger.info("entered screen shot func if");
+		if (!result.isSuccess()) {
+		
+			
 			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 			// File scrFile = ((TakesScreenshot)driver).getScreenshotAs(arg0)
 			// Now you can do whatever you need to do with it, for example copy
 			// somewhere
+			
+			
 			String faliureImageName =System.getProperty("user.dir")+"\\src\\test\\java\\automationPractice\\automationPractice\\screenshot\\" + 
-					 " _ " + result.getMethod().getMethodName()+ "-" + System.currentTimeMillis()+ ".png";
+					 result.getMethod().getMethodName()+ "-" + System.currentTimeMillis()+ ".png";
+			System.out.println(faliureImageName +"faliureImageName");
 			screenShotName=new File(faliureImageName);
 			try {
+				String filePath = screenShotName.toString();
+				System.out.println("filePath"+filePath);
+				/*String path = "<img src=\"file://" + filePath + "\" alt=image height='100' width='100'/>";
+				System.out.println("repoert image path" + path);
+				Reporter.log(path);*/
+				String path = "<a href=\"file://" + filePath + "\"><img src=\"file://" + filePath + "\" alt=image height='100' width='100'/> </a>";
+				System.out.println("repoert image path" + path);
+				Reporter.log(path);
+
 				FileUtils.copyFile(scrFile,
 						screenShotName);
-
+				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				 System.err.println("Unable to capture screenshot...");
 				e.printStackTrace();
 			}
-			String filePath = screenShotName.toString();
-			String path = "<img src=\"file://" + filePath + " alt=image\"\"" + "height='100' width='100'/>";
-			Reporter.log(path);
+			
 			 
 		}
 		

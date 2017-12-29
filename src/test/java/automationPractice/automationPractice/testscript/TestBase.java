@@ -1,8 +1,7 @@
 package automationPractice.automationPractice.testscript;
 
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 
 import java.io.IOException;
@@ -11,12 +10,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.Properties;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.WebElement;
@@ -90,7 +86,7 @@ public class TestBase {
 
 	}
 
-	@AfterMethod
+	/*@AfterMethod
 	public void Screenshot(ITestResult testResult) throws IOException {
 		logger.info("entered screen shot func");
 		logger.info(testResult.getStatus());
@@ -110,11 +106,11 @@ public class TestBase {
 				e.printStackTrace();
 			}
 		}
-	}
-	/*@AfterSuite
+	}*/
+	@AfterSuite
 	public void closeDriver(){
 		driver.close();
-	}*/
+	}
 	
 	public void scrollDown(){
 	JavascriptExecutor js = (JavascriptExecutor) driver;  
