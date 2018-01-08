@@ -19,6 +19,12 @@
           <class name = "automationPractice.automationPractice.testscript.TC002_SignInAndRegister" />
       </classes>
    </test>
+    <test name = "ContactUs">
+        <classes>
+
+            <class name = "automationPractice.automationPractice.testscript.TC_ContactUs" />
+        </classes>
+    </test>
    
     <test name = "Shoppingcart">
      <parameter name="categoryname" value="Women"/>

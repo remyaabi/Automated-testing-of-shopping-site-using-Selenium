@@ -28,6 +28,7 @@ public class Elements {
 	public static final String emailcreateText ="email_create";
 	public static final String SubmitCreateButton ="SubmitCreate";
 	public static final String signOut ="//a[@class='logout' and @title='Log me out']";
+    public static final String invalidSignIn="//div[@class='alert alert-danger']";
 	//Women page
 	public static final String dressLinkInWomen ="(//a[@class='sf-with-ul' and @title='Dresses'])[1]";
 	public static final String tshirtMouseOverInWomen="(//a[contains(@href,'http://automationpractice.com/index.php?id_category=5&controller=category') and @title='T-shirts'])[1]";
@@ -126,4 +127,18 @@ public class Elements {
     public static final String myAddresslink= "//a[@title='Addresses']";
     public static final String addMyAddresslink="//a[@title='Add my first address']";
     public static final String addNewAddressButton="//a[@title='Add an address']";
+
+
+    //contact us page
+    public static final String subjectHeading="//div[@id='uniform-id_contact']/select[@id='id_contact']";
+    public static final String contactEmail="//input[@id='email']";
+    public static final String contactOrderreference="//input[@id='id_order']";
+    public static final String fileUploadText="//div[@id='uniform-fileUpload']/span[@class='filename']";
+    public static final String fileUploadButton="//div[@id='uniform-fileUpload']/span[@class='action']";
+    public static final String sendButton="//button[@id='submitMessage']";
+    public static final String messageTextarea="//textarea[@id='message']";
+    public static final String succesMessage="//p[@class='alert alert-success']";
+    public static final String Homelink="//ul[@class='footer_links clearfix']/li/a[@class='btn btn-default button button-small']";
+    public static  final String errorParagraph="//div[@class='alert alert-danger']";
+    public static  final String errorParacontent="//div[@class='alert alert-danger']/ol/li";
 }

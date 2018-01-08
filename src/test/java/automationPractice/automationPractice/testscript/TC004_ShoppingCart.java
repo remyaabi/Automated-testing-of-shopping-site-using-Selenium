@@ -197,7 +197,7 @@ public class TC004_ShoppingCart extends TestBase {
 				String state = "iowa";
 				String phNo = "62654375";
 				String moblieNo = "5735978607";
-				int zipCode = 98433;
+				String  zipCode =" 98433";
 				String aliasVal = "gh";
 				Thread.sleep(1000);
 				createAccount.updateAddress(custName, custLastName, company, address1, address2, city, state, phNo,
@@ -281,7 +281,7 @@ public class TC004_ShoppingCart extends TestBase {
 			String state = "iowa";
 			String phNo = "62654375";
 			String moblieNo = "5735978607";
-			int zipCode = 98433;
+			String  zipCode = "98433";
 			String aliasVal = "gfhvj";
 			createAccount.updateAddress(custName, custLastName, company, address1, address2, city, state, phNo,
 					moblieNo, zipCode, aliasVal);
@@ -361,7 +361,7 @@ if (billingAddressUpdate) {
 	String state = "iowa";
 	String phNo = "62654375";
 	String moblieNo = "5735978607";
-	int zipCode = 98433;
+	String  zipCode = "98433";
 	String aliasVal = "gfhvghjjjhg";
 	createAccount.updateAddress(custName, custLastName, company, address1, address2, city, state, phNo,
 			moblieNo, zipCode, aliasVal);
@@ -482,7 +482,7 @@ mainHomePageobject.returnHomeLink();
 		String state = "iowa";
 		String phNo = "62654375";
 		String moblieNo = "5735978607";
-		int zipCode = 98433;
+		String  zipCode = "98433";
 		String aliasVal = "gfhvghjjjhg";
 		createAccount.updateAddress(custName, custLastName, company, address1, address2, city, state, phNo,
 				moblieNo, zipCode, aliasVal);
@@ -624,7 +624,7 @@ mainHomePageobject.returnHomeLink();
 		String state = "iowa";
 		String phNo = "62654375";
 		String moblieNo = "5735978607";
-		int zipCode = 98433;
+		String  zipCode = "98433";
 		String aliasVal = "gfhvghjjjhg";
 		createAccount.updateAddress(custName, custLastName, company, address1, address2, city, state, phNo,
 				moblieNo, zipCode, aliasVal);

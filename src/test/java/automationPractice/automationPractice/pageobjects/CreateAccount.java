@@ -160,9 +160,9 @@ public class CreateAccount {
 		phone.sendKeys(phoneValue.toString());
 	}
 
-	public void enterPostCode(Integer postValue) {
+	public void enterPostCode(String postValue) {
 		postcode.clear();
-		postcode.sendKeys(postValue.toString());
+		postcode.sendKeys(postValue);
 	}
 
 	public void enterPhoneMobileValue(String phonemobileValue) {
@@ -276,7 +276,7 @@ public class CreateAccount {
 
 	public void registerAccount(String gender,String custName,String custLastName,String password,String day, 
 			String month,String year,boolean newsletter, boolean option,String company,String address1,String address2,
-			String city,String state,String phNo,String moblieNo,int zipCode,String aliasValue) {
+			String city,String state,String phNo,String moblieNo,String zipCode,String aliasValue) {
 		radioIdGenderString(gender);
 		enterCustomerFirstName(custName);
 		enterCustomerLastName(custLastName);
@@ -303,9 +303,7 @@ public class CreateAccount {
 	
 	public void updateAddress(String custName,String custLastName, 
 			String company,String address1,String address2,
-			String city,String state,String phNo,String moblieNo,int zipCode,String aliasVal) {
-	
-			
+			String city,String state,String phNo,String moblieNo,String  zipCode,String aliasVal) {
 		enterFirstName(custName);
 		enterLastName(custLastName);
 		enterCompany(company);

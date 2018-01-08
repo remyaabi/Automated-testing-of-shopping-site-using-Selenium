@@ -107,10 +107,10 @@ public class TestBase {
 			}
 		}
 	}*/
-	@AfterSuite
+	/*@AfterSuite
 	public void closeDriver(){
 		driver.close();
-	}
+	}*/
 	
 	public void scrollDown(){
 	JavascriptExecutor js = (JavascriptExecutor) driver;  

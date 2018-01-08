@@ -52,7 +52,7 @@ public class TC002_SignInAndRegister extends TestBase {
 		logger.info(createAccount.createAccAssertionLabel().toLowerCase());
 		Reporter.log(createAccount.createAccAssertionLabel().toLowerCase());
 		Assert.assertEquals(createAccount.createAccAssertionLabel().toLowerCase(), excepted.toLowerCase(), "new account created");
-		mainHomePageobject.signInLinkClick();
+		mainHomePageobject.returnHomeLink();
 	}
 	
 	@Test(dataProvider="GetExcelDataSignIn" ,testName = "tc2Sub2_SignInAlreadyRegisteredUser", description = "testcase to validate existing user email and password", groups = {
@@ -61,7 +61,7 @@ public class TC002_SignInAndRegister extends TestBase {
 		mainHomePageobject.signInLinkClick();
 		CommonUtil.signinAlreadyRegUser(mainHomePageobject, signInObj, userName, password);
 		wait.until(ExpectedConditions.visibilityOf((WebElement) myAcccount.getMyAccHeaderlabel()));
-		Assert.assertEquals( myAcccount.verifyMyAccHeaderlabel().trim().toLowerCase(), "my account","Valid user able to signin");
+		Assert.assertEquals(myAcccount.verifyMyAccHeaderlabel().trim().toLowerCase(), "my account", "Valid user able to signin");
 		wait.until(ExpectedConditions.visibilityOf((WebElement) signInObj.getSignOutLink()));
 		signInObj.signOutClick();
 	}
@@ -72,16 +72,19 @@ public class TC002_SignInAndRegister extends TestBase {
 		mainHomePageobject.signInLinkClick();
 		CommonUtil.signinAlreadyRegUser(mainHomePageobject, signInObj, userName, password);
 		//WebDriverWait wait = new WebDriverWait(driver, 20);
-		wait.until(ExpectedConditions.visibilityOf((WebElement)signInObj.getInvalidSignIn()));
+		wait.until(ExpectedConditions.visibilityOf((WebElement) signInObj.getInvalidSignIn()));
 		Assert.assertTrue(signInObj.invalidSignInDisplayed(), "authentication failed becuse if EmailAddress/ password");
 		mainHomePageobject.returnHomeLink();
 
 	}
 	
-	@Test(enabled=true)
-	public void tc2Sub3_RegisterAccount() {
-		String email = "email" + System.currentTimeMillis() + "@gmail.com";
-		String gender = "1";
+	@Test(enabled=true,dataProvider="GetExcelRegisterAccount" ,testName = "tc2Sub3_RegisterAccount", description = "testcase to validate existing user email and password", groups = {
+			"TC002_SignIn" }, priority = 4)
+	public void tc2Sub3_RegisterAccount(String email,String gender,String custName,String custLastName,String password,String day,
+										String month,String year,boolean newsletter, boolean option,String company,String address1,String address2,
+										String city,String state,String phNo,String moblieNo,String zipCode,String aliasValue) {
+		String emailSend = email + System.currentTimeMillis() + "@gmail.com";
+		/*String gender = "1";
 		String custName = "custName";
 		String custLastName = "custLastName";
 		String password = "password";
@@ -98,13 +101,13 @@ public class TC002_SignInAndRegister extends TestBase {
 		String phNo = "62654375";
 		String moblieNo = "5735978607";
 		int zipCode = 98433;
-		String aliasVal="jkdjvk";
+		String aliasVal="jkdjvk";*/
 		mainHomePageobject.signInLinkClick();
-		signInObj.createNewaccount(email);
+		signInObj.createNewaccount(emailSend);
 		WebDriverWait wait = new WebDriverWait(driver, 40);
-		wait.until(ExpectedConditions.visibilityOf((WebElement) createAccount.getPersonalSubHeader()));
+       		wait.until(ExpectedConditions.visibilityOf((WebElement) createAccount.getPersonalSubHeader()));
 		createAccount.registerAccount(gender, custName, custLastName, password, day, month, year, newsletter, option,
-				company, address1, address2, city, state, phNo, moblieNo, zipCode,aliasVal);
+				company, address1, address2, city, state, phNo, moblieNo, zipCode, aliasValue);
 
 		wait.until(ExpectedConditions.visibilityOf((WebElement) myAcccount.getMySubAccHeaderlabel()));
 		boolean isAccSubheaderPresent = myAcccount.checkMyAccSubHeaderLabel();
@@ -121,16 +124,24 @@ public class TC002_SignInAndRegister extends TestBase {
 	}
 
 	@DataProvider(name="GetExcelDataSignIn")
-	public String[][] GetExcelDataSignIn() throws EncryptedDocumentException, InvalidFormatException, IOException{
+	public Object[][] GetExcelDataSignIn() throws EncryptedDocumentException, InvalidFormatException, IOException{
 		ReadExcel readExcel=new ReadExcel();	
 		String sheetName="SignIn";
 		String path=System.getProperty("user.dir")+ "/src/test/resources/testdata.xlsx";
 		return readExcel.excelReader(path,sheetName);
 	}
 	@DataProvider(name="GetExcelDataSignInNegative")
-	public String[][] GetExcelDataSignInNegative() throws EncryptedDocumentException, InvalidFormatException, IOException{
+	 public Object[][] GetExcelDataSignInNegative() throws EncryptedDocumentException, InvalidFormatException, IOException{
 		ReadExcel readExcel=new ReadExcel();
 		String sheetName="SignInNegative";
+		String path=System.getProperty("user.dir")+ "/src/test/resources/testdata.xlsx";
+		return readExcel.excelReader(path,sheetName);
+	}
+
+	@DataProvider(name="GetExcelRegisterAccount")
+	public Object[][] GetExcelRegisterAccount() throws EncryptedDocumentException, InvalidFormatException, IOException{
+		ReadExcel readExcel=new ReadExcel();
+		String sheetName="CreateAccount";
 		String path=System.getProperty("user.dir")+ "/src/test/resources/testdata.xlsx";
 		return readExcel.excelReader(path,sheetName);
 	}
