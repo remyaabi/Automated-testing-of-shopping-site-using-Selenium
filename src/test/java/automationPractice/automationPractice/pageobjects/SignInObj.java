@@ -19,7 +19,26 @@ public class SignInObj {
 	private WebElement SubmitCreateButton;	
 	@FindBy(xpath=Elements.signOut)
 	private WebElement signOut;
-	
+	@FindBy(xpath=Elements.invalidSignIn)
+	private WebElement invalidSignIn;
+
+	public WebElement getInvalidSignIn(){
+		return invalidSignIn;
+	}
+
+	public boolean invalidSignInDisplayed(){
+		boolean flag=false;
+		try{
+			if (getInvalidSignIn().isDisplayed()) {
+				flag = true;
+			}
+
+		}catch(Exception e){
+			System.err.println("Error occured when invalidSignIn is displayed is checked");
+			e.printStackTrace();
+		}
+			return flag;
+	}
 	
 	public WebElement getSignOutLink(){
 		return signOut;
@@ -53,6 +72,11 @@ public class SignInObj {
 	public void forgotPaswdLinkClick(){
 		logger.info("click on forgot password link");
 		forgotPaswdLink.click();
+	}
+	public void createNewaccount(String email)
+	{
+		emailcreateTextClick(email);
+		SubmitCreateButtonClick();
 	}
 	
 }
