@@ -1,13 +1,10 @@
 package automationPractice.automationPractice.testscript;
-import java.io.File;
-import java.io.FileInputStream;
+
 import java.io.IOException;
 import org.apache.log4j.Logger;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -66,20 +63,66 @@ public class TC002_SignInAndRegister extends TestBase {
 		signInObj.signOutClick();
 	}
 
-	@Test(dataProvider="GetExcelDataSignInNegative" ,testName = "tc2Sub2_SignInAlreadyRegisteredUserNegative", description = "testcase to validate existing user email and password", groups = {
+	@Test(dataProvider="GetExcelDataSignInEmailInvalid" ,testName = "tc2Sub2_SignInAlreadyRegisteredUserNegative", description = "testcase to validate existing user email and password", groups = {
 			"TC002_SignIn" }, priority = 3)
 	public void tc2Sub2_SignInAlreadyRegisteredUserNegative(String userName, String password ) {
 		mainHomePageobject.signInLinkClick();
 		CommonUtil.signinAlreadyRegUser(mainHomePageobject, signInObj, userName, password);
 		//WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(ExpectedConditions.visibilityOf((WebElement) signInObj.getInvalidSignIn()));
-		Assert.assertTrue(signInObj.invalidSignInDisplayed(), "authentication failed becuse if EmailAddress/ password");
+		Assert.assertEquals("Wrong Username/Password", signInObj.assertInvalidSignInText(), "Email Invalid");
+		mainHomePageobject.returnHomeLink();
+
+	}
+	@Test(dataProvider="GetExcelDataSignInEmailBlank" ,testName = "tc2Sub2_SignInAlreadyRegisteredUserEmailBlank", description = "testcase to validate existing user email and password", groups = {
+			"TC002_SignIn" }, priority = 4)
+	public void tc2Sub2_SignInAlreadyRegisteredUserEmailBlank(String userName, String password ) {
+		mainHomePageobject.signInLinkClick();
+		CommonUtil.signinAlreadyRegUser(mainHomePageobject, signInObj, userName, password);
+		//WebDriverWait wait = new WebDriverWait(driver, 20);
+		wait.until(ExpectedConditions.visibilityOf((WebElement) signInObj.getInvalidSignIn()));
+		Assert.assertEquals("Blank email", signInObj.assertInvalidSignInText(),"Email is required");
+		mainHomePageobject.returnHomeLink();
+
+	}
+	@Test(dataProvider="GetExcelDataSignInPasswordBlank" ,testName = "tc2Sub2_SignInAlreadyRegisteredUserEmailBlank", description = "testcase to validate existing user email and password", groups = {
+			"TC002_SignIn" }, priority = 5)
+	public void tc2Sub2_SignInAlreadyRegisteredUserPasswordBlank(String userName, String password ) {
+		mainHomePageobject.signInLinkClick();
+		CommonUtil.signinAlreadyRegUser(mainHomePageobject, signInObj, userName, password);
+		//WebDriverWait wait = new WebDriverWait(driver, 20);
+		wait.until(ExpectedConditions.visibilityOf((WebElement) signInObj.getInvalidSignIn()));
+
+		Assert.assertEquals("Blank Password", signInObj.assertInvalidSignInText(),"password is required");
+		mainHomePageobject.returnHomeLink();
+
+	}
+	@Test(dataProvider="GetExcelDataSignInPasswordLenLessThan5" ,testName = "tc2Sub2_SignInAlreadyRegisteredUserEmailBlank", description = "testcase to validate existing user email and password", groups = {
+			"TC002_SignIn" }, priority = 6)
+	public void tc2Sub2_SignInAlreadyRegisteredUserPasswordLenLessThan5(String userName, String password ) {
+		mainHomePageobject.signInLinkClick();
+		CommonUtil.signinAlreadyRegUser(mainHomePageobject, signInObj, userName, password);
+		//WebDriverWait wait = new WebDriverWait(driver, 20);
+		wait.until(ExpectedConditions.visibilityOf((WebElement) signInObj.getInvalidSignIn()));
+		Assert.assertEquals("Invalid password", signInObj.assertInvalidSignInText(),"Invalid password.");
+		mainHomePageobject.returnHomeLink();
+	}
+
+	@Test(dataProvider="GetExcelDataSignInPasswordInvalid" ,testName = "tc2Sub2_SignInAlreadyRegisteredUserEmailBlank", description = "testcase to validate existing user email and password", groups = {
+			"TC002_SignIn" }, priority = 7)
+	public void tc2Sub2_SignInAlreadyRegisteredUserPasswordInvalid(String userName, String password ) {
+		mainHomePageobject.signInLinkClick();
+		CommonUtil.signinAlreadyRegUser(mainHomePageobject, signInObj, userName, password);
+		//WebDriverWait wait = new WebDriverWait(driver, 20);
+		wait.until(ExpectedConditions.visibilityOf((WebElement) signInObj.getInvalidSignIn()));
+
+		Assert.assertEquals("Wrong Username/Password", signInObj.assertInvalidSignInText(), "Wrong  password ");
 		mainHomePageobject.returnHomeLink();
 
 	}
 	
 	@Test(enabled=true,dataProvider="GetExcelRegisterAccount" ,testName = "tc2Sub3_RegisterAccount", description = "testcase to validate existing user email and password", groups = {
-			"TC002_SignIn" }, priority = 4)
+			"TC002_SignIn" }, priority = 7)
 	public void tc2Sub3_RegisterAccount(String email,String gender,String custName,String custLastName,String password,String day,
 										String month,String year,boolean newsletter, boolean option,String company,String address1,String address2,
 										String city,String state,String phNo,String moblieNo,String zipCode,String aliasValue) {
@@ -114,13 +157,9 @@ public class TC002_SignInAndRegister extends TestBase {
 		logger.info("My Account header" + isAccSubheaderPresent);
 		if (isAccSubheaderPresent) {
 			Assert.assertTrue(true, "Sucessfully registered new user");
-		} else {
-			Assert.assertTrue(false, "Registration failed");
-
 		}
 		wait.until(ExpectedConditions.visibilityOf((WebElement) signInObj.getSignOutLink()));
 		signInObj.signOutClick();
-
 	}
 
 	@DataProvider(name="GetExcelDataSignIn")
@@ -130,10 +169,10 @@ public class TC002_SignInAndRegister extends TestBase {
 		String path=System.getProperty("user.dir")+ "/src/test/resources/testdata.xlsx";
 		return readExcel.excelReader(path,sheetName);
 	}
-	@DataProvider(name="GetExcelDataSignInNegative")
-	 public Object[][] GetExcelDataSignInNegative() throws EncryptedDocumentException, InvalidFormatException, IOException{
+	@DataProvider(name="GetExcelDataSignInEmailInvalid")
+	 public Object[][] GetExcelDataSignInEmailInvalid() throws EncryptedDocumentException, InvalidFormatException, IOException{
 		ReadExcel readExcel=new ReadExcel();
-		String sheetName="SignInNegative";
+		String sheetName="EmailInvalid";
 		String path=System.getProperty("user.dir")+ "/src/test/resources/testdata.xlsx";
 		return readExcel.excelReader(path,sheetName);
 	}
@@ -142,6 +181,35 @@ public class TC002_SignInAndRegister extends TestBase {
 	public Object[][] GetExcelRegisterAccount() throws EncryptedDocumentException, InvalidFormatException, IOException{
 		ReadExcel readExcel=new ReadExcel();
 		String sheetName="CreateAccount";
+		String path=System.getProperty("user.dir")+ "/src/test/resources/testdata.xlsx";
+		return readExcel.excelReader(path,sheetName);
+	}
+	@DataProvider(name="GetExcelDataSignInEmailBlank")
+	public Object[][] GetExcelDataSignInEmailBlank() throws EncryptedDocumentException, InvalidFormatException, IOException{
+		ReadExcel readExcel=new ReadExcel();
+		String sheetName="emailBlank";
+		String path=System.getProperty("user.dir")+ "/src/test/resources/testdata.xlsx";
+		return readExcel.excelReader(path,sheetName);
+	}
+	@DataProvider(name="GetExcelDataSignInPasswordBlank")
+	public Object[][] GetExcelDataSignInPasswordBlank() throws EncryptedDocumentException, InvalidFormatException, IOException{
+		ReadExcel readExcel=new ReadExcel();
+		String sheetName="BlankPassword";
+		String path=System.getProperty("user.dir")+ "/src/test/resources/testdata.xlsx";
+		return readExcel.excelReader(path,sheetName);
+	}
+
+	@DataProvider(name="GetExcelDataSignInPasswordInvalid")
+	public Object[][] GetExcelDataSignInPasswordInvalid() throws EncryptedDocumentException, InvalidFormatException, IOException{
+		ReadExcel readExcel=new ReadExcel();
+		String sheetName="WrongPassword";
+		String path=System.getProperty("user.dir")+ "/src/test/resources/testdata.xlsx";
+		return readExcel.excelReader(path,sheetName);
+	}
+	@DataProvider(name="GetExcelDataSignInPasswordLenLessThan5")
+	public Object[][] GetExcelDataSignInPasswordLenLessThan5() throws EncryptedDocumentException, InvalidFormatException, IOException{
+		ReadExcel readExcel=new ReadExcel();
+		String sheetName="InvalidPassword";
 		String path=System.getProperty("user.dir")+ "/src/test/resources/testdata.xlsx";
 		return readExcel.excelReader(path,sheetName);
 	}

@@ -70,7 +70,16 @@ public class TC004_ShoppingCart extends TestBase {
 	@Parameters({ "categoryname", "subCatNameInWomen", "itemName", "quantity", "size" })
 	public void tc4sub1_shoppingCartOnWomenMouseOver(String categoryname, String subCatNameInWomen, String itemName,
 			int quantity, String size) throws InterruptedException {
-		dataSetUp();
+		if (mainHomePageobject.getSignInsignOutText("Sign in")) {
+			Reporter.log("Eneted sign in condition");
+			String userName = "remy@gmail.com";
+			String password = "tttti";
+			CommonUtil.signinAlreadyRegUser(mainHomePageobject, signInObj, userName, password);
+		}
+		myAccount.myAddresslinkClick();
+		if(addressObj.displayAddressnotAvailablePara()) {
+			dataSetUp();
+		}
 		commonMethodMouseOver(categoryname, subCatNameInWomen, itemName, quantity, size);
 		buyProduct.proceedCheckoutClick();
 		Thread.sleep(1000);
@@ -86,12 +95,12 @@ public class TC004_ShoppingCart extends TestBase {
 			shoppingCartSummary.proceedCheckOutSummaryClick();
 			Reporter.log("webElementDisplayedorNotshoppingCartSummary.getProceedCheckOutSummary()After click() ");
 		}
-		 if (mainHomePageobject.getSignInsignOutText("Sign in")) { 
+		 /*if (mainHomePageobject.getSignInsignOutText("Sign in")) {
 			Reporter.log("Eneted sign in condition");
 			String userName="remy@gmail.com";
 			String password="tttti";
 			CommonUtil.signinAlreadyRegUser(mainHomePageobject, signInObj,userName,password);
-		}
+		}*/
 		actionMouseOver(cartObj.getCart());
 
 		Reporter.log("performed action on cart link");
@@ -101,9 +110,6 @@ public class TC004_ShoppingCart extends TestBase {
 		if ((CommonUtil.webElementDisplayedorNot(cartObj.getCartCheckoutLink()))) {
 			cartObj.cartCheckoutLinkClick();
 		}
-
-	
-
 		explicitwaitMouseOver(buyProduct.getproceedCheckoutLink2());
 		
 		// wait.until(ExpectedConditions.visibilityOf(buyProduct.getproceedCheckoutLink2()));
@@ -602,33 +608,28 @@ mainHomePageobject.returnHomeLink();
 		// buyProduct.assertProductTitle(productTitle));
 	}
 
-	public void dataSetUp(){
-		if  (mainHomePageobject.getSignInsignOutText("Sign in")) {
-			
-			Reporter.log("Eneted sign in condition");
-			String userName="remy@gmail.com";
-			String password="tttti";
-			CommonUtil.signinAlreadyRegUser(mainHomePageobject, signInObj,userName,password);
-		}
-		myAccount.myAddresslinkClick();
-		Assert.assertTrue(addressObj.textAssertCheck(addressObj.getAddressnotAvailableText(), "No addresses are available"));
-		myAccount.addNewAddressButtonClick();
-		Assert.assertTrue(addressObj.textAssertCheck(addressObj.getYourAddressText(), "YOUR ADDRESSES"));
-		String custName = "custName";
-		String custLastName = "custLastName";
+	public void dataSetUp() {
+		//Assert.assertTrue(addressObj.textAssertCheck(addressObj.getAddressnotAvailableText(), "No addresses are available"));
 
-		String company = "companyName";
-		String address1 = "123 fjej kgokh kgofkbl djmkfbhkg";
-		String address2 = "";
-		String city = "santideago";
-		String state = "iowa";
-		String phNo = "62654375";
-		String moblieNo = "5735978607";
-		String  zipCode = "98433";
-		String aliasVal = "gfhvghjjjhg";
-		createAccount.updateAddress(custName, custLastName, company, address1, address2, city, state, phNo,
-				moblieNo, zipCode, aliasVal);
-		
+		if ((addressObj.getAddressnotAvailableText().getText().trim().contains("No addresses are available"))) {
+			myAccount.addNewAddressButtonClick();
+			Assert.assertTrue(addressObj.textAssertCheck(addressObj.getYourAddressText(), "YOUR ADDRESSES"));
+			String custName = "custName";
+			String custLastName = "custLastName";
+
+			String company = "companyName";
+			String address1 = "123 fjej kgokh kgofkbl djmkfbhkg";
+			String address2 = "";
+			String city = "santideago";
+			String state = "iowa";
+			String phNo = "62654375";
+			String moblieNo = "5735978607";
+			String zipCode = "98433";
+			String aliasVal = "gfhvghjjjhg";
+			createAccount.updateAddress(custName, custLastName, company, address1, address2, city, state, phNo,
+					moblieNo, zipCode, aliasVal);
+
+		}
 	}
 
 	

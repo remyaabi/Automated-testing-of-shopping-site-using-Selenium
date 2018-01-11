@@ -29,6 +29,8 @@ public class Elements {
 	public static final String SubmitCreateButton ="SubmitCreate";
 	public static final String signOut ="//a[@class='logout' and @title='Log me out']";
     public static final String invalidSignIn="//div[@class='alert alert-danger']";
+    public static final String invalidSignInText= "//div[@class='alert alert-danger']/ol/li";
+
 	//Women page
 	public static final String dressLinkInWomen ="(//a[@class='sf-with-ul' and @title='Dresses'])[1]";
 	public static final String tshirtMouseOverInWomen="(//a[contains(@href,'http://automationpractice.com/index.php?id_category=5&controller=category') and @title='T-shirts'])[1]";
@@ -107,6 +109,9 @@ public class Elements {
     public static final String deleteButtonInBackToAddressPage="//a[@title='Delete']";
     public static final String addressnotAvailableText="//p[contains(text(),'No addresses are available')]";
     public static final String yourAddressText= "//h1[text()='Your addresses']";
+    public static final String addressnotAvailablePara= "//div[@id='center_column']/p[2]";
+    public static final String addressAvailablePara= "//div[@class='addresses']/p[1]";
+
     //Shipping obj
     public static final String agreeTermCheckbox ="//input[@id='cgv' and @type='checkbox']";
     public static final String shippingProceedCheckout="//button[@name='processCarrier' ]";

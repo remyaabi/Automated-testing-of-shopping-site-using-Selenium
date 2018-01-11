@@ -5,22 +5,52 @@ import org.openqa.selenium.support.FindBy;
 import automationPractice.automationPractice.configuration.Elements;
 public class SignInObj {
 	static Logger logger = Logger.getLogger(SignInObj.class.getName());
-	@FindBy(xpath=Elements.signInEmailText) 
+	@FindBy(xpath = Elements.signInEmailText)
 	private WebElement signInEmailText;
-	@FindBy(id=Elements.signInPasswdText)
+	@FindBy(id = Elements.signInPasswdText)
 	private WebElement signInPasswdText;
-	@FindBy(xpath=Elements.forgotPaswdLink)
+	@FindBy(xpath = Elements.forgotPaswdLink)
 	private WebElement forgotPaswdLink;
-	@FindBy(xpath=Elements.SubmitLoginButton)
-	private WebElement SubmitLoginButton;	
-	@FindBy(id=Elements.emailcreateText)
+	@FindBy(xpath = Elements.SubmitLoginButton)
+	private WebElement SubmitLoginButton;
+	@FindBy(id = Elements.emailcreateText)
 	private WebElement emailcreateText;
-	@FindBy(id=Elements.SubmitCreateButton)
-	private WebElement SubmitCreateButton;	
-	@FindBy(xpath=Elements.signOut)
+	@FindBy(id = Elements.SubmitCreateButton)
+	private WebElement SubmitCreateButton;
+	@FindBy(xpath = Elements.signOut)
 	private WebElement signOut;
-	@FindBy(xpath=Elements.invalidSignIn)
+	@FindBy(xpath = Elements.invalidSignIn)
 	private WebElement invalidSignIn;
+	@FindBy(xpath = Elements.invalidSignInText)
+	private WebElement invalidSignInText;
+
+
+	public WebElement getInvalidSignInText() {
+		return invalidSignInText;
+	}
+
+	public String getInvalidSignInTextValue() {
+		System.out.print(" getInvalidSignInText().getText().trim() : " + getInvalidSignInText().getText().trim());
+		return getInvalidSignInText().getText().trim();
+	}
+
+	public String assertInvalidSignInText() {
+		System.out.print(" getInvalidSignInText().getText().trim() : " + getInvalidSignInText().getText().trim());
+		String assertvalue = "Test Passed";
+		if ((getInvalidSignInTextValue().toLowerCase()).contains("An email address required.".toLowerCase())) {
+			assertvalue = "Blank email";
+		} else if ((getInvalidSignInTextValue().toLowerCase()).contains("Invalid email address.".toLowerCase())) {
+			assertvalue = "Invalid email";
+		} else if ((getInvalidSignInTextValue().toLowerCase()).contains("Password is required.".toLowerCase())) {
+			assertvalue = "Blank Password";
+		}else if(((getInvalidSignInTextValue().toLowerCase()).contains("Authentication failed.".toLowerCase()))){
+			assertvalue="Wrong Username/Password";
+		}else if(((getInvalidSignInTextValue().toLowerCase()).contains("Invalid password.".toLowerCase()))){
+			assertvalue="Invalid password";
+		}
+		return assertvalue;
+	}
+
 
 	public WebElement getInvalidSignIn(){
 		return invalidSignIn;

@@ -1,15 +1,15 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-
 <suite name = "Integration Suite">
-    <listeners>
-        <listener  class-name="automationPractice.automationPractice.customlistener.Listener"/>
-    </listeners>
+<listeners>
+    <listener class-name="automationPractice.automationPractice.retry.RetryListener"></listener>
+</listeners>
     <test name = "Navigation Link">
         <classes>
             <class name = "automationPractice.automationPractice.testscript.TC001_Navigationlink" />
         </classes>
     </test>
+
     <test name = "SignInRegister">
         <classes>
             <class name = "automationPractice.automationPractice.testscript.TC002_SignInAndRegister" />
@@ -31,5 +31,4 @@
             <class name = "automationPractice.automationPractice.testscript.TC004_ShoppingCart" />
         </classes>
     </test>
-
 </suite>
