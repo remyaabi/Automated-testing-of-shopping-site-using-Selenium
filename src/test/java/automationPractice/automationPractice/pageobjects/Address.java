@@ -42,8 +42,39 @@ public class Address {
 	private WebElement  addressnotAvailableText;
 	@FindBy(xpath = Elements.yourAddressText)
 	private WebElement  yourAddressText;
-	
-	
+	@FindBy(xpath = Elements.addressnotAvailablePara)
+	private WebElement  addressnotAvailablePara;
+	@FindBy(xpath = Elements.addressAvailablePara)
+	private WebElement  addressAvailablePara;
+
+	public WebElement getAddressnotAvailablePara() {
+		return addressnotAvailablePara;
+	}
+	public WebElement getAddressAvailablePara() {
+		return addressAvailablePara;
+	}
+	public boolean displayAddressAvailablePara(){
+		boolean flag=false;
+		try{
+			if (getAddressAvailablePara().isDisplayed()){
+				flag= true;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	public boolean displayAddressnotAvailablePara(){
+		boolean flag=false;
+		try{
+			if (getAddressnotAvailablePara().isDisplayed()){
+				flag= true;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return flag;
+	}
 	public WebElement getAddressnotAvailableText() {
 		return addressnotAvailableText;
 	}
